@@ -52,8 +52,8 @@ az network vnet subnet create \
 
 ### Get the id of the Subnet for AKS
 echo "Get the Subnet for AKS ID" 
-AKS_SNET_ID=$(az network vnet subnet show -g $AKS_RG_NAME --vnet-name $APPGTW_MAIN_VNET_NAME --name  $AKS_SUBNET_NAME --query id -o tsv)
-
+#AKS_SNET_ID=$(az network vnet subnet show -g $AKS_RG_NAME --vnet-name $APPGTW_MAIN_VNET_NAME --name  $AKS_SUBNET_NAME --query id -o tsv)
+AKS_SNET_ID="/subscriptions/10dfa491-ff80-4d70-a4ee-9aeb49b8c00e/resourceGroups/rg-appgtw-aks-lab/providers/Microsoft.Network/virtualNetworks/main-vnet/subnets/aks-subnet"
 ### create aks cluster
 echo "Creating AKS Cluster RG"
 az group create \
@@ -72,7 +72,7 @@ az aks create \
   --node-vm-size $AKS_NODE_SIZE \
   --location $AKS_RG_LOCATION \
   --load-balancer-sku standard \
-  --vnet-subnet-id $AKS_SNET_ID \
+  --vnet-subnet-id "$AKS_SNET_ID" \
   --vm-set-type $AKS_VMSETTYPE \
   --kubernetes-version $AKS_VERSION \
   --network-plugin $AKS_CNI_PLUGIN \
@@ -80,7 +80,7 @@ az aks create \
   --dns-service-ip $AKS_CLUSTER_DNS \
   --docker-bridge-address $AKS_CLUSTER_DOCKER_BRIDGE \
   --api-server-authorized-ip-ranges $MY_HOME_PUBLIC_IP"/32" \
-  --ssh-key-value $ADMIN_USERNAME_SSH_KEYS_PUB \
+  --ssh-key-value "$ADMIN_USERNAME_SSH_KEYS_PUB" \
   --admin-username $GENERIC_ADMIN_USERNAME \
   --debug
 
@@ -153,7 +153,7 @@ az vm create \
   --image $SSH_VM_IMAGE \
   --size $SSH_VM_SIZE \
   --admin-username $GENERIC_ADMIN_USERNAME \
-  --ssh-key-values $ADMIN_USERNAME_SSH_KEYS_PUB \
+  --ssh-key-values "$ADMIN_USERNAME_SSH_KEYS_PUB" \
   --storage-sku $SSH_VM_STORAGE_SKU \
   --os-disk-size-gb $SSH_VM_OS_DISK_SIZE \
   --os-disk-name $SSH_VM_OS_DISK_NAME \
@@ -196,7 +196,7 @@ sleep 100
 
 ### Copy to VM AKS SSH Priv Key
 echo "Copy to VM priv Key of AKS Cluster"
-scp -o 'StrictHostKeyChecking no' -i $SSH_PRIV_KEY $SSH_PRIV_KEY $GENERIC_ADMIN_USERNAME@$SSH_VM_PUBLIC_IP_PARSED:/home/$GENERIC_ADMIN_USERNAME/id_rsa
+scp -o 'StrictHostKeyChecking no' -i "$SSH_PRIV_KEY" "$SSH_PRIV_KEY" $GENERIC_ADMIN_USERNAME@$SSH_VM_PUBLIC_IP_PARSED:/home/$GENERIC_ADMIN_USERNAME/id_rsa
 
 ### Set Correct Permissions on Priv Key
 echo "Set good Permissions on AKS Priv Key"

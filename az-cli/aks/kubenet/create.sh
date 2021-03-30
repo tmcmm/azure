@@ -254,7 +254,7 @@ else
   --node-vm-size $NODE_SIZE \
   --location $LOCATION \
   --load-balancer-sku standard \
-  --vnet-subnet-id $AKS_SNET_ID \
+  --vnet-subnet-id $VNET_SUBNETID \
   --vm-set-type $VMSETTYPE \
   --kubernetes-version $VERSION \
   --network-plugin $CNI_PLUGIN \
@@ -263,13 +263,14 @@ else
   --docker-bridge-address $AKS_CLUSTER_DOCKER_BRIDGE \
   --pod-cidr $AKS_POD_CIDR \
   --api-server-authorized-ip-ranges $MY_HOME_PUBLIC_IP"/32" \
-  --ssh-key-value $ADMIN_USERNAME_SSH_KEYS_PUB \
   --admin-username $GENERIC_ADMIN_USERNAME \
   --nodepool-name sysnpool \
   --nodepool-tags "env=syspool" \
+  --generate-ssh-keys \
+  #--debug
+  #--ssh-key-values $ADMIN_USERNAME_SSH_KEYS_PUB \
   --debug
 fi
-
 ## Logic for VMASS only
 if [[ "$VMSETTYPE" == "AvailabilitySet" ]]; then
   echo "Skip second Nodepool - VMAS dont have it"
@@ -356,12 +357,12 @@ az vm create \
   --image $IMAGE \
   --size $VM_SIZE \
   --admin-username $GENERIC_ADMIN_USERNAME \
-  --ssh-key-values $ADMIN_USERNAME_SSH_KEYS_PUB \
   --storage-sku $VM_STORAGE_SKU \
   --os-disk-size-gb $VM_OS_DISK_SIZE \
   --os-disk-name $VM_OS_DISK_NAME \
   --nics $VM_NIC_NAME \
   --tags $TAGS \
+  --ssh-key-values $ADMIN_USERNAME_SSH_KEYS_PUB \
   --debug
 
 echo "Sleeping 45s - Allow time for Public IP"

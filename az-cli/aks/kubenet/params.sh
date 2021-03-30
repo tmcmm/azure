@@ -13,15 +13,21 @@ CLUSTER_NAME="aks-"$PURPOSE
 NODE_SIZE="Standard_DS2_v2"
 USER_NODE_SIZE="Standard_D4s_v3"
 NODE_COUNT="3"
-#USER_NODE_COUNT="2"
-NODE_DISK_SIZE="90"
+USER_NODE_COUNT="2"
+USER_NODE_DISK_SIZE="90"
+VNET_SUBNETID="/subscriptions/10dfa491-ff80-4d70-a4ee-9aeb49b8c00e/resourceGroups/rg-aks-11713/providers/Microsoft.Network/virtualNetworks/vnet-full-aks-11713/subnets/snet-full-11713"
 #USER_NODE_DISK_SIZE="100"
-#VMSETTYPE="VirtualMachineScaleSets"
-VMSETTYPE="AvailabilitySet"
+VMSETTYPE="VirtualMachineScaleSets"
+#VMSETTYPE="AvailabilitySet"
 VERSION="1.17.13"
 
 ## Networking
 VNET_RG=$RG_NAME
+SP="db93c95c-062d-4cb7-8d56-773baa4cddef"
+SPPASS="BBFJ2dMDsbuj8fT3Dp.O_-e3vWPb-iKAeM"
+GENERIC_ADMIN_USERNAME="azureuser"
+#ADMIN_USERNAME_SSH_KEYS_PUB="/home/tmcmm/.ssh/ansible_rsa.pub"
+ADMIN_USERNAME_SSH_KEYS_PUB="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ+tZ0vkk0l7UvLrXBd0yfXBZIHwlZTDWCKC+K0Y7B6La34fQcryBUrsVPrJ8kwklxOLIAUOpA/oRefqhGSdPxolRDYOdXjDUfY+aROa3W3gARYmfpZSYmXCOFqIFJpSA+B9Kg02EPDHpmwfObGnoXWF/SqEYUfQD/q1gB5i5Y9gBfakaFsUoIPh4KujUaFKMP8qyOBqq9iHQmyi2nSlLfg1Ek6sydgBeaL84m1BQgeYMsbhd/66PNWBfCT59bGO7TgXzdLp0J6qefYD3Ipz7yjT9jrGrN+znIkmUOc6JWwljuIKRlSYnkYwvCJiQiJal2W7zzhiSbmdwl1fy03tbf azureuser@azure"
 CNI_PLUGIN="kubenet"
 AKS_VNET="vnet-full-"$CLUSTER_NAME
 AKS_VNET_RG="rg-vnet-full-"$CLUSTER_NAME
@@ -62,4 +68,5 @@ VM_OS_DISK_NAME="$VM_NAME""_disk_01"
 VM_NSG_NAME="$VM_NAME""_nsg"
 VM_NIC_NAME="$VM_NAME""nic01"
 TAGS="env=kubernetes"
+SSH_PRIV_KEY="~/.ssh/ansible_rsa"
 

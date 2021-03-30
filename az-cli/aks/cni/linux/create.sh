@@ -240,27 +240,26 @@ else
   echo "Creating AKS without Monitor"
   echo '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
   az aks create \
-  --resource-group $RG_NAME \
-  --name $CLUSTER_NAME \
-  --service-principal $SP \
-  --client-secret $SPPASS \
-  --node-count $NODE_COUNT \
-  --node-vm-size $NODE_SIZE \
-  --location $LOCATION \
+  --resource-group rg-aks-11814 \
+  --name aks-11814 \
+  --service-principal db93c95c-062d-4cb7-8d56-773baa4cddef \
+  --client-secret BBFJ2dMDsbuj8fT3Dp.O_-e3vWPb-iKAeM \
+  --node-count 1 \
+  --node-vm-size Standard_D4s_v3 \
+  --location westeurope \
   --load-balancer-sku standard \
-  --vnet-subnet-id $AKS_SNET_ID \
-  --vm-set-type $VMSETTYPE \
+  --vnet-subnet-id "/subscriptions/10dfa491-ff80-4d70-a4ee-9aeb49b8c00e/resourceGroups/rg-aks-11814/providers/Microsoft.Network/virtualNetworks/vnet-full-aks-11814/subnets/snet-full-11814" \
+  --vm-set-type VirtualMachineScaleSets \
   --kubernetes-version $VERSION \
   --network-plugin $CNI_PLUGIN \
   --service-cidr $AKS_CLUSTER_SRV_CIDR \
   --dns-service-ip $AKS_CLUSTER_DNS \
   --docker-bridge-address $AKS_CLUSTER_DOCKER_BRIDGE \
   --api-server-authorized-ip-ranges $MY_HOME_PUBLIC_IP"/32" \
-  --ssh-key-value $ADMIN_USERNAME_SSH_KEYS_PUB \
-  --admin-username $GENERIC_ADMIN_USERNAME \
-  --nodepool-name sysnpool \
+  --ssh-key-value "$ADMIN_USERNAME_SSH_KEYS_PUB" \
+  --nodepool-name "sysnpool" \
   --nodepool-tags "env=syspool" \
-  --debug
+  --admin-username "azureuser" 
 fi
 
 ## Logic for VMASS only
@@ -348,7 +347,7 @@ az vm create \
   --image $IMAGE \
   --size $VM_SIZE \
   --admin-username $GENERIC_ADMIN_USERNAME \
-  --ssh-key-values $ADMIN_USERNAME_SSH_KEYS_PUB \
+  --ssh-key-values "$ADMIN_USERNAME_SSH_KEYS_PUB" \
   --storage-sku $VM_STORAGE_SKU \
   --os-disk-size-gb $VM_OS_DISK_SIZE \
   --os-disk-name $VM_OS_DISK_NAME \

@@ -17,7 +17,12 @@ USER_NODE_DISK_SIZE="100"
 VMSETTYPE="VirtualMachineScaleSets"
 #VMSETTYPE="AvailabilitySet"
 VERSION="1.18.14"
-
+SP="db93c95c-062d-4cb7-8d56-773baa4cddef"
+SPPASS="BBFJ2dMDsbuj8fT3Dp.O_-e3vWPb-iKAeM"
+GENERIC_ADMIN_USERNAME="azureuser"
+SNET_ID="/subscriptions/10dfa491-ff80-4d70-a4ee-9aeb49b8c00e/resourceGroups/rg-aks-11814/providers/Microsoft.Network/virtualNetworks/vnet-full-aks-11814/subnets/snet-full-11814"
+#ADMIN_USERNAME_SSH_KEYS_PUB="/home/tmcmm/.ssh/ansible_rsa.pub"
+ADMIN_USERNAME_SSH_KEYS_PUB="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ+tZ0vkk0l7UvLrXBd0yfXBZIHwlZTDWCKC+K0Y7B6La34fQcryBUrsVPrJ8kwklxOLIAUOpA/oRefqhGSdPxolRDYOdXjDUfY+aROa3W3gARYmfpZSYmXCOFqIFJpSA+B9Kg02EPDHpmwfObGnoXWF/SqEYUfQD/q1gB5i5Y9gBfakaFsUoIPh4KujUaFKMP8qyOBqq9iHQmyi2nSlLfg1Ek6sydgBeaL84m1BQgeYMsbhd/66PNWBfCT59bGO7TgXzdLp0J6qefYD3Ipz7yjT9jrGrN+znIkmUOc6JWwljuIKRlSYnkYwvCJiQiJal2W7zzhiSbmdwl1fy03tbf azureuser@azure"
 ## Networking
 VNET_RG=$RG_NAME
 CNI_PLUGIN="azure"
